@@ -29,5 +29,24 @@ const getPlaceById = (req, res, next) => {
   res.json({ place }); // => { place } => { place: place }
 };
 
+// Route to get Places data By User Id
+const getPlaceByUserId = (req, res, next) => {
+  const userId = req.params.uid;
+  console.log(userId)
+
+  const place = DUMMY_PLACES.find(p => {
+    return p.creator === userId;
+  });
+
+  if (!place) {
+    return next(
+        new HttpError('Could not find a place for the provided user id.', 404)
+    );
+  }
+
+  res.json({ place });
+};
+
 exports.getPlaceById = getPlaceById;
+exports.getPlaceByUserId = getPlaceByUserId;
 
