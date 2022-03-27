@@ -5,8 +5,11 @@ const placesRoutes = require('./routes/places-routes');
 
 const app = express();
 
+app.use(bodyParser.json());
+
 app.use('/api/places', placesRoutes); // => /api/places...
 
+// Middleware for Handling Error
 app.use((error, req, res, next) => {
     if (res.headerSent) {
         return next(error);
